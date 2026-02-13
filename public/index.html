@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HabitFlow — Build Better Habits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body class="page-auth">
+
+  <!-- Animated background -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar-auth">
+    <div class="logo">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">HabitFlow</span>
+    </div>
+  </nav>
+
+  <!-- Auth Container -->
+  <main class="auth-main">
+    <div class="auth-hero">
+      <h1 class="hero-title">Build habits.<br/><em>Change everything.</em></h1>
+      <p class="hero-sub">Track streaks, set goals, and become the person you want to be — one day at a time.</p>
+      <div class="hero-stats">
+        <div class="stat-pill">🔥 7-day streaks</div>
+        <div class="stat-pill">📊 Progress analytics</div>
+        <div class="stat-pill">🎯 Goal tracking</div>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <!-- Tab switcher -->
+      <div class="auth-tabs">
+        <button class="tab-btn active" data-tab="login">Sign In</button>
+        <button class="tab-btn" data-tab="register">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form active">
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" id="login-email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required />
+        </div>
+        <div id="login-error" class="form-error hidden"></div>
+        <button type="submit" class="btn-primary btn-full">
+          <span class="btn-text">Sign In</span>
+          <span class="btn-loader hidden">⟳</span>
+        </button>
+        <p class="form-hint">No account? <a href="#" class="switch-tab" data-target="register">Create one →</a></p>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="reg-username" placeholder="coolhabitperson" required />
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" id="reg-email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="reg-password" placeholder="Min. 6 characters" required />
+        </div>
+        <div id="register-error" class="form-error hidden"></div>
+        <div id="register-success" class="form-success hidden"></div>
+        <button type="submit" class="btn-primary btn-full">
+          <span class="btn-text">Create Account</span>
+          <span class="btn-loader hidden">⟳</span>
+        </button>
+        <p class="form-hint">Already have one? <a href="#" class="switch-tab" data-target="login">Sign in →</a></p>
+      </form>
+    </div>
+  </main>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

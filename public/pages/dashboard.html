@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — HabitFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body class="page-app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">HabitFlow</span>
+      <button class="sidebar-close" id="sidebar-close">✕</button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/pages/dashboard.html" class="nav-item active">
+        <span class="nav-icon">⊞</span> Dashboard
+      </a>
+      <a href="/pages/habits.html" class="nav-item">
+        <span class="nav-icon">◉</span> My Habits
+      </a>
+      <a href="/pages/analytics.html" class="nav-item">
+        <span class="nav-icon">◈</span> Analytics
+      </a>
+      <a href="/pages/profile.html" class="nav-item">
+        <span class="nav-icon">○</span> Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="logout-btn" class="btn-logout">
+        <span>↩</span> Log out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="app-layout">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <div class="topbar-greeting">
+        <h2>Good <span id="time-greeting">morning</span>, <span id="user-name">friend</span> 👋</h2>
+        <p id="today-date"></p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn-primary btn-sm" id="add-habit-top-btn">+ New Habit</button>
+      </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="app-main dashboard-main">
+
+      <!-- Stats Row -->
+      <section class="stats-row">
+        <div class="stat-card stat-blue">
+          <div class="stat-icon">◉</div>
+          <div class="stat-body">
+            <div class="stat-value" id="stat-total">—</div>
+            <div class="stat-label">Total Habits</div>
+          </div>
+        </div>
+        <div class="stat-card stat-green">
+          <div class="stat-icon">✓</div>
+          <div class="stat-body">
+            <div class="stat-value" id="stat-today">—</div>
+            <div class="stat-label">Done Today</div>
+          </div>
+        </div>
+        <div class="stat-card stat-orange">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-body">
+            <div class="stat-value" id="stat-streak">—</div>
+            <div class="stat-label">Avg Streak</div>
+          </div>
+        </div>
+        <div class="stat-card stat-purple">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-body">
+            <div class="stat-value" id="stat-rate">—%</div>
+            <div class="stat-label">Today's Rate</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Today's Habits -->
+      <section class="section-card">
+        <div class="section-header">
+          <h3>Today's Habits</h3>
+          <span id="today-day-label" class="day-badge"></span>
+        </div>
+        <div id="today-habits-list" class="habits-today-list">
+          <div class="loading-state">Loading habits...</div>
+        </div>
+      </section>
+
+      <!-- Weekly Overview -->
+      <section class="section-card">
+        <div class="section-header">
+          <h3>Weekly Overview</h3>
+          <a href="/pages/habits.html" class="link-muted">View all →</a>
+        </div>
+        <div id="weekly-grid" class="weekly-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Add Habit Modal -->
+  <div id="habit-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">New Habit</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <form id="habit-form">
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Habit Name *</label>
+            <input type="text" id="habit-name" placeholder="e.g. Morning meditation" required />
+          </div>
+          <div class="form-group form-icon-pick">
+            <label>Icon</label>
+            <input type="text" id="habit-icon" placeholder="⭐" maxlength="2" value="⭐" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="habit-description" placeholder="Optional description..." rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Category</label>
+            <select id="habit-category">
+              <option value="health">🩺 Health</option>
+              <option value="fitness">💪 Fitness</option>
+              <option value="mindfulness">🧘 Mindfulness</option>
+              <option value="learning">📚 Learning</option>
+              <option value="productivity">⚡ Productivity</option>
+              <option value="social">👥 Social</option>
+              <option value="other">✨ Other</option>
+            </select>
+          </div>
+          <div class="form-group flex-1">
+            <label>Color</label>
+            <input type="color" id="habit-color" value="#6366f1" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Target Days</label>
+          <div class="day-selector" id="day-selector">
+            <label class="day-chip"><input type="checkbox" value="Mon" checked /><span>Mon</span></label>
+            <label class="day-chip"><input type="checkbox" value="Tue" checked /><span>Tue</span></label>
+            <label class="day-chip"><input type="checkbox" value="Wed" checked /><span>Wed</span></label>
+            <label class="day-chip"><input type="checkbox" value="Thu" checked /><span>Thu</span></label>
+            <label class="day-chip"><input type="checkbox" value="Fri" checked /><span>Fri</span></label>
+            <label class="day-chip"><input type="checkbox" value="Sat" /><span>Sat</span></label>
+            <label class="day-chip"><input type="checkbox" value="Sun" /><span>Sun</span></label>
+          </div>
+        </div>
+        <div id="habit-form-error" class="form-error hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="modal-cancel">Cancel</button>
+          <button type="submit" class="btn-primary">Save Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

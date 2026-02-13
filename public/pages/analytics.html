@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics — HabitFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body class="page-app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">HabitFlow</span>
+      <button class="sidebar-close" id="sidebar-close">✕</button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/pages/dashboard.html" class="nav-item">
+        <span class="nav-icon">⊞</span> Dashboard
+      </a>
+      <a href="/pages/habits.html" class="nav-item">
+        <span class="nav-icon">◉</span> My Habits
+      </a>
+      <a href="/pages/analytics.html" class="nav-item active">
+        <span class="nav-icon">◈</span> Analytics
+      </a>
+      <a href="/pages/profile.html" class="nav-item">
+        <span class="nav-icon">○</span> Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="logout-btn" class="btn-logout">↩ Log out</button>
+    </div>
+  </aside>
+
+  <div class="app-layout">
+    <header class="topbar">
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <div class="topbar-greeting">
+        <h2>Analytics</h2>
+        <p>Your progress at a glance</p>
+      </div>
+    </header>
+
+    <main class="app-main">
+
+      <!-- Summary Stats -->
+      <section class="stats-row">
+        <div class="stat-card stat-blue">
+          <div class="stat-icon">◉</div>
+          <div class="stat-body">
+            <div class="stat-value" id="an-total">—</div>
+            <div class="stat-label">Active Habits</div>
+          </div>
+        </div>
+        <div class="stat-card stat-green">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-body">
+            <div class="stat-value" id="an-longest">—</div>
+            <div class="stat-label">Longest Streak</div>
+          </div>
+        </div>
+        <div class="stat-card stat-orange">
+          <div class="stat-icon">📊</div>
+          <div class="stat-body">
+            <div class="stat-value" id="an-avg">—</div>
+            <div class="stat-label">Avg Streak</div>
+          </div>
+        </div>
+        <div class="stat-card stat-purple">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-body">
+            <div class="stat-value" id="an-rate">—%</div>
+            <div class="stat-label">Today's Rate</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Breakdown -->
+      <section class="section-card">
+        <div class="section-header">
+          <h3>Habits by Category</h3>
+        </div>
+        <div id="category-bars" class="category-bars">
+          <div class="loading-state">Loading...</div>
+        </div>
+      </section>
+
+      <!-- Streak Leaderboard -->
+      <section class="section-card">
+        <div class="section-header">
+          <h3>Streak Leaderboard</h3>
+          <span class="badge-muted">Your top habits</span>
+        </div>
+        <div id="streak-list" class="streak-list">
+          <div class="loading-state">Loading...</div>
+        </div>
+      </section>
+
+      <!-- Weekly Completion Chart -->
+      <section class="section-card">
+        <div class="section-header">
+          <h3>This Week's Completion</h3>
+        </div>
+        <div id="weekly-chart" class="weekly-chart-bars">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+
+      <!-- Goals Section -->
+      <section class="section-card">
+        <div class="section-header">
+          <h3>&#127919; My Goals</h3>
+          <button class="btn-primary btn-sm" id="add-goal-btn">+ Set Goal</button>
+        </div>
+        <div id="goals-list" class="goals-list">
+          <div class="loading-state">Loading goals...</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Goal Modal -->
+  <div id="goal-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Set a New Goal</h3>
+        <button class="modal-close" id="goal-modal-close">&#x2715;</button>
+      </div>
+      <form id="goal-form">
+        <div class="form-group">
+          <label>Choose a Habit *</label>
+          <select id="goal-habit-id" required>
+            <option value="">&#8212; Select habit &#8212;</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Goal Title *</label>
+          <input type="text" id="goal-title" placeholder="e.g. Reach 30-day streak!" required />
+        </div>
+        <div class="form-group">
+          <label>Target Streak (days) *</label>
+          <input type="number" id="goal-target-streak" min="1" max="365" placeholder="e.g. 30" required />
+        </div>
+        <div class="form-group">
+          <label>Target Date (optional)</label>
+          <input type="date" id="goal-target-date" />
+        </div>
+        <div class="form-group">
+          <label>Reward (optional)</label>
+          <input type="text" id="goal-reward" placeholder="e.g. Buy myself a new book!" />
+        </div>
+        <div id="goal-form-error" class="form-error hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="goal-modal-cancel">Cancel</button>
+          <button type="submit" class="btn-primary">Create Goal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/analytics.js"></script>
+</body>
+</html>
